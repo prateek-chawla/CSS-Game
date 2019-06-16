@@ -1,70 +1,88 @@
-body{
+body
+{
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    overflow:hidden;
     counter-reset: count;
-    margin: 0;    
+    margin: 0;        
+    background-color: rgba(238, 250, 210, 0.89) ;
 }
 
-.checkboxes{
+.checkboxes
+{
     position:fixed;
     left: -50%;
     bottom: -50%;
 }
 
-h1{
+h1
+{
     font-family: 'Lobster Two' , 'Open Sans';
     text-align: center;
     color: rgb(255, 255, 255);     
-    background-color: #168;  
-    position: absolute;
-    top: 0%;
-    left: 0%; 
+    background-color: rgb(105, 187, 219);  
     display: block;
-    width: 100%;
     font-weight: 500;
     margin: 0px;
-      
 }
 
-.play-area{
+.play-area
+{
     border: 4px solid gray;
     height: 70%;
     width: 60%;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);    
-    cursor: crosshair;;
-    margin: 5px auto;
+    transform: translate(-50%,-55%);    
+    cursor: crosshair;
     background: linear-gradient(to bottom, rgb(138, 216, 230) 0% , white 25% );
-    overflow: inherit;
+    overflow: hidden;
 }
 
-
-.timer{
-    border: 4px solid gray;
-    height: 20%;
+.timer
+{
+    border: 5px solid gray;
+    height: 5%;
     width: 60%;
     position: absolute;
     top: 80%;
     left: 50%;
     display: inline-block;
     margin-top: 5%;
-    border-radius: 15%;
+    border-radius: 25px;
     transform: translate(-50%,-50%); 
-    background: linear-gradient(to bottom, black , white 25% );
-
-
+    background-color: white;  
+    
 }
-.checkboxes:checked{
+
+.timer:before
+{
+    content: "";
+    display: inline-block;
+    background:repeating-linear-gradient(
+            -45deg,
+            rgb(138, 216, 230) 0px,
+            rgb(138, 216, 230) 25px,
+            white 25px,
+            white 50px 
+    );
+    transition: 0.2s linear;
+    animation: timer 12s ;
+    position: inherit;
+    height: 100%;
+    border-radius: 25px; 
+}
+
+.checkboxes:checked
+{
     counter-increment: count;
 }
 
-.bubbles{
+.bubbles
+{
     border-radius: 50%;
     height: 40px;
     width:40px;
@@ -75,7 +93,8 @@ h1{
     position:absolute;
     left:0;  
     cursor:crosshair;
-    background-color: rgb(243, 88, 27);
+    box-shadow: 2px 2px 4px;
+    
 }
 
 .check-bubble1:not(:checked) ~ .bubble1,
@@ -88,55 +107,117 @@ h1{
     opacity:1;
 }
 
-@keyframes move{
-      0% { left : 0% ; }
-     15% { top : 20% ; left : 20%; }
-     30% { top : 60% ; left : 15%; }
-     45% { top : 15% ; left : 80%; }
-     60% { top : 75% ; left : 45%; }
-     75% { top : 35% ; left : 85%; }
-     90% { top : 30% ; left : 15%; }
-    100% { top : 85% ; left : 75%; }
+.check-bubble1:checked ~ .bubble1,
+.check-bubble2:checked ~ .bubble2,
+.check-bubble3:checked ~ .bubble3,
+.check-bubble4:checked ~ .bubble4,
+.check-bubble5:checked ~ .bubble5,
+.check-bubble6:checked ~ .bubble6
+{
+    display: none;
 }
-
 
 .bubble1
 {
     top:50px;
-    animation-delay: -1s!important;
+    animation-delay: -1s;
+    background-color: #126;
 }
 
 .bubble2
 {
     top:100px;
-    animation-delay: -2.5s!important;
+    animation-delay: -2.5s;
     transform:scale(0.7); 
+    background-color: rgb(225, 228, 42);
 }
 
 .bubble3
 {
     top:200px;
-    animation-delay: -3s!important;
+    animation-delay: -3s;
     transform:scale(1.4); 
+    background-color: rgb(11, 235, 78);
 }
  
 .bubble4
 {
     top:50px;
-    animation-delay: -0.5s!important;
+    animation-delay: -0.5s;
     transform:scale(1.9);
+    background-color: rgb(230, 40, 182);
 }
 
 .bubble5
 {
     top:100px;
-    animation-delay: -5s!important;
+    animation-delay: -5s;
     transform:scale(1.3); 
+    background-color: rgb(204, 155, 48);
 }
 
 .bubble6
 {
     top:200px;
-    animation-delay: -6s!important;
+    animation-delay: -6s;
     transform:scale(1.4); 
+    background-color: rgb(243, 88, 27);
+}
+
+.end
+{
+    background-color: rgb(109, 109, 103);
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000; 
+    opacity: 0.95;
+    position: fixed;
+    top: 0;
+    left: 0;
+    animation: end 12s linear; 
+}
+
+.end span
+{
+    text-align: center;
+    font-family: 'Encode Sans Expanded' ;
+    font-size: 80px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+}
+
+.end span:after
+{
+    font-size: 40px;
+    display: block;
+    content: "Score : " counter(count);
+}
+
+@keyframes move
+{
+    0% { left : 0% ; }
+   15% { top : 20% ; left : 20%; }
+   30% { top : 60% ; left : 15%; }
+   45% { top : 15% ; left : 80%; }
+   60% { top : 75% ; left : 45%; }
+   75% { top : 35% ; left : 85%; }
+   90% { top : 30% ; left : 15%; }
+  100% { top : 85% ; left : 75%; }
+}
+
+@keyframes timer
+{
+    0%   { width: 0% ; }
+    100% { width: 100% ;}
+}
+
+@keyframes end
+{
+    0%  { top:-5000px;}
+    90% { top:-5000px;}
+    97% { top:0px;}
 }
